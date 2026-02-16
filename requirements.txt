@@ -1,5 +1,7 @@
+catboost
 streamlit
 pandas
 numpy
 scikit-learn
 pickle-mixin
+

@@ -9,13 +9,50 @@ st.set_page_config(
     layout="centered"
 )
 
+# ===== PREMIUM CSS =====
+st.markdown("""
+<style>
+
+footer {visibility: hidden;}
+
+.premium-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(90deg,#0f172a,#111827);
+    color: white;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 14px;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.4);
+    z-index: 999;
+}
+
+.premium-footer a {
+    margin: 0 12px;
+    display: inline-block;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.premium-footer a:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 6px #38bdf8);
+}
+
+.premium-footer img {
+    filter: invert(1);
+}
+
+</style>
+""", unsafe_allow_html=True)
+
 # ===== LOAD MODEL =====
 model = pickle.load(open("model.pkl","rb"))
 
 # ===== HEADER =====
 st.markdown("## 📊 Customer Churn Prediction App")
 st.markdown("Predict whether a telecom customer will churn.")
-
 st.markdown("---")
 
 # ===== INPUT SECTION =====
@@ -87,16 +124,22 @@ if st.button("🔍 Predict Churn"):
     else:
         st.success("✅ Customer likely to stay")
 
-# ===== FOOTER =====
-st.markdown("---")
-st.caption("Built by Vishal Verma | Machine Learning Project")
+# ===== PREMIUM FOOTER =====
 
-# ===== SOCIAL LINKS =====
-st.markdown(
-    """
-    🔗 **Connect with me:**
+st.markdown("""
+<div class="premium-footer">
 
-    [GitHub](https://github.com/VishalVerma0310)  
-    [LinkedIn](https://www.linkedin.com/in/vishalverma0310)
-    """
-)
+Built by <b>Vishal Verma</b> | Machine Learning Project
+
+<br>
+
+<a href="https://github.com/VishalVerma0310" target="_blank">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" width="22">
+</a>
+
+<a href="https://www.linkedin.com/in/YOUR-LINKEDIN-ID" target="_blank">
+<img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" width="22">
+</a>
+
+</div>
+""", unsafe_allow_html=True)

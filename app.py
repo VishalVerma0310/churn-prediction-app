@@ -2,21 +2,26 @@ import streamlit as st
 import numpy as np
 import pickle
 
-# Load model
+# ===== PAGE SETTINGS =====
+st.set_page_config(
+    page_title="Churn Predictor",
+    page_icon="📊",
+    layout="centered"
+)
+
+# ===== LOAD MODEL =====
 model = pickle.load(open("model.pkl","rb"))
 
-st.title("Customer Churn Prediction")
+# ===== HEADER =====
+st.markdown("## 📊 Customer Churn Prediction App")
+st.markdown("Predict whether a telecom customer will churn.")
 
-# ===== INPUTS =====
+st.markdown("---")
+
+# ===== INPUT SECTION =====
 
 gender = st.selectbox("Gender", ["Male","Female"])
-age = st.number_input("Age",18,100)
-
 married = st.selectbox("Married", ["Yes","No"])
-dependents = st.number_input("Number of Dependents",0,10)
-
-tenure = st.number_input("Tenure in Months",0,120)
-
 internet = st.selectbox("Internet Service", ["Yes","No"])
 
 contract = st.selectbox(
@@ -29,8 +34,18 @@ payment = st.selectbox(
     ["Electronic check","Mailed check","Bank transfer","Credit card"]
 )
 
-monthly = st.number_input("Monthly Charge",0.0,500.0)
-total = st.number_input("Total Charges",0.0,10000.0)
+col1, col2 = st.columns(2)
+
+with col1:
+    age = st.number_input("Age",18,100)
+    dependents = st.number_input("Number of Dependents",0,10)
+    tenure = st.number_input("Tenure in Months",0,120)
+
+with col2:
+    monthly = st.number_input("Monthly Charge",0.0,500.0)
+    total = st.number_input("Total Charges",0.0,10000.0)
+
+st.markdown("---")
 
 # ===== MANUAL ENCODING =====
 
@@ -60,11 +75,28 @@ input_data = np.array([[gender, age, married,
                         internet, contract,
                         payment, monthly, total]])
 
-if st.button("Predict"):
+if st.button("🔍 Predict Churn"):
 
     prediction = model.predict(input_data)
+    probability = model.predict_proba(input_data)[0][0]
+
+    st.subheader(f"📈 Churn Risk: {probability*100:.1f}%")
 
     if prediction[0]==0:
         st.error("⚠️ Customer likely to churn")
     else:
         st.success("✅ Customer likely to stay")
+
+# ===== FOOTER =====
+st.markdown("---")
+st.caption("Built by Vishal Verma | Machine Learning Project")
+
+# ===== SOCIAL LINKS =====
+st.markdown(
+    """
+    🔗 **Connect with me:**
+
+    [GitHub](https://github.com/VishalVerma0310)  
+    [LinkedIn](https://www.linkedin.com/in/vishalverma0310)
+    """
+)

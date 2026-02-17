@@ -50,16 +50,6 @@ The goal is to help businesses:
 ✔ Professional deployment  
 ✔ Mobile-friendly design  
 
----
-
-## 🗂️ Project Structure
-
-```
-├── app.py
-├── model.pkl
-├── requirements.txt
-└── README.md
-```
 
 ---
 
